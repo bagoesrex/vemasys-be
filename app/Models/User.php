@@ -19,6 +19,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'regions_id',
         'name',
         'email',
         'password',
@@ -46,5 +47,19 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'regions_id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(VehicleBooking::class);
+    }
+
+    public function approvals()
+    {
+        return $this->hasMany(BookingApproval::class, 'approver_id');
     }
 }

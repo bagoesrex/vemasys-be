@@ -23,9 +23,11 @@ class AuthenticationController extends Controller
                 'email'    => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
                 'role'     => 'required|in:admin,approver_1,approver_2',
+                'regions_id' => 'required|exists:regions,id',
             ]);
 
             $user = User::create([
+                'regions_id' => $validated['regions_id'],
                 'name'     => $validated['name'],
                 'email'    => $validated['email'],
                 'password' => Hash::make($validated['password']),
@@ -86,6 +88,7 @@ class AuthenticationController extends Controller
                     'name'  => $user->name,
                     'email' => $user->email,
                     'role'  => $user->role,
+                    'regions_id' => $user->regions_id
                 ],
                 'token'       => $token,
                 'token_type'  => 'Bearer',
