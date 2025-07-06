@@ -25,7 +25,7 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function () {
             Route::get('approvals', [ApprovalController::class, 'index']);
             Route::post('approvals/{id}/approve', [ApprovalController::class, 'approve']);
             Route::post('approvals/{id}/reject', [ApprovalController::class, 'reject']);
-            Route::get('/approvals/history', [ApprovalController::class, 'history']);
+            Route::get('approvals/history', [ApprovalController::class, 'history']);
         });
 
         Route::get('vehicles', [MasterDataController::class, 'vehicles']);
