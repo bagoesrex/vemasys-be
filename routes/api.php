@@ -8,7 +8,7 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function () {
     Route::post('login', 'AuthenticationController@login')->name('login');
     
     // ------------------ Get Data ----------------------//
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware(['auth:sanctum','role:admin,approver_2'])->group(function () {
         Route::get('get-user', 'AuthenticationController@userInfo')->name('get-user');
         Route::post('logout', 'AuthenticationController@logOut')->name('logout');
     });
