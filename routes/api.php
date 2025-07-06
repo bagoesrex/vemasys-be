@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AdminBookingRequestController;
 use App\Http\Controllers\API\MasterDataController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,10 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('get-user', 'AuthenticationController@userInfo');
         Route::post('logout', 'AuthenticationController@logOut');
+
+        Route::middleware('role:admin')->group(function () {
+            Route::post( 'admin/bookings/request', [AdminBookingRequestController::class, 'store']);
+        });
 
         Route::get('vehicles', [MasterDataController::class, 'vehicles']);
         Route::get('drivers', [MasterDataController::class, 'drivers']);
